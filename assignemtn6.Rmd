@@ -1,0 +1,50 @@
+---
+title: "Assignment6"
+author: "yaru peng"
+date: "4/13/2018"
+output: pdf_document
+---
+Bude Town is a small seaside resort town in north Cornwall, England, UK, which has been named as the Best UK Coastal Resort for three consecutive years.
+
+Map:
+```{r}
+
+library(ggmap)
+library(tidyverse)
+
+map <- get_googlemap(center = c(-4.543678,50.83),zoom=15)
+sites <- data.frame(lat=c(50.830553,50.835880,50.833467,50.830161),
+                    long =c(-4.551,-4.5539,-4.552814,-4.544088),
+                    name=c("Summerleaze Beach","Crooklets Beach","Cricket club","Bar 35"))
+
+from <- "Bude North Cornwall Cricket Club"
+to <- "Bar 35, Belle Vue Ln, Bude EX23 8BR"
+route_df <- route(from,to, structure = "route")
+
+
+ggmap(map) +
+  geom_point(data = sites, aes(x=long, y=lat, color = name))+
+  geom_path(aes(x = lon, y =lat),color = "blue", size = 1.1, data = route_df, lineed = "round")
+```
+
+water color:
+```{r}
+map2 <- get_map(location = c(-4.543678,50.83), source="stamen", maptype = "watercolor", zoom=15)
+
+
+ggmap(map2) +
+  geom_point(data = sites, aes(x=long, y=lat, color = name))+
+  geom_path(aes(x = lon, y =lat),color = "blue", size = 1.1, data = route_df, lineed = "round")
+
+```
+
+spots:
+
+![Summerleaze Beach](/Users/yarupeng/Desktop/Assigment6/Summerleaze Beach.jpg)
+![Crooklets Beach](/Users/yarupeng/Desktop/Assigment6/Crooklets Beach.jpg)
+![Bar 35](/Users/yarupeng/Desktop/Assigment6/Bar 35.jpg)
+![Cricket club](/Users/yarupeng/Desktop/Assigment6/Cricket club.jpg)
+
+
+
+
